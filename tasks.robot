@@ -12,6 +12,7 @@ Library             RPA.PDF
 Library             RPA.Desktop
 Library             RPA.Archive
 Library             RPA.FileSystem
+Library             DateTime
 
 
 *** Tasks ***
@@ -58,7 +59,6 @@ Order robot
 
 Store the receipt as a PDF file
     [Arguments]    ${order_number}
-    #${pdf}=    Save Pdf    ${OUTPUT_DIR}${/}receipts{/}${order_number}.pdf    ${null}
     Wait Until Element Is Visible    xpath://div[@id = 'receipt']
     ${receiptHTML}=    Get Element Attribute    xpath://div[@id = 'receipt']    outerHTML
     Html To Pdf    ${receiptHTML}    ${OUTPUT_DIR}${/}receipts${/}${order_number}.pdf
@@ -74,7 +74,9 @@ Setup for another order
     Close the annoying modal
 
 Compile receipts
-    Archive Folder With Zip    ${OUTPUT_DIR}${/}receipts    ${OUTPUT_DIR}${/}receipts.zip
+    ${formatted_timestamp}=    Get Current Date    result_format=%y-%m-%d-%H-%M-%S
+    ${file_name}=    Catenate    SEPARATOR=    receipts-    ${formatted_timestamp}
+    Archive Folder With Zip    ${OUTPUT_DIR}${/}receipts    ${OUTPUT_DIR}${/}receipts-${formatted_timestamp}.zip
 
 Clean the environment
     Remove File    orders.csv
