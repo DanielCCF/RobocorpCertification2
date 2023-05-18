@@ -11,6 +11,7 @@ Library             RPA.Tables
 Library             RPA.PDF
 Library             RPA.Desktop
 Library             RPA.Archive
+Library             RPA.FileSystem
 
 
 *** Tasks ***
@@ -26,6 +27,7 @@ Order robots from RobotSpareBin Industries Inc
         Setup for another order
     END
     Compile receipts
+    [Teardown]    Clean the environment
 
 
 *** Keywords ***
@@ -73,3 +75,8 @@ Setup for another order
 
 Compile receipts
     Archive Folder With Zip    ${OUTPUT_DIR}${/}receipts    ${OUTPUT_DIR}${/}receipts.zip
+
+Clean the environment
+    Close All Browsers
+    Remove Directory    ${OUTPUT_DIR}${/}receipts    recursive:=${True}
+    Remove Directory    ${OUTPUT_DIR}${/}screenshots    recursive:=${True}
