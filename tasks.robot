@@ -25,6 +25,7 @@ Order robots from RobotSpareBin Industries Inc
         Store the receipt as a PDF file    ${order}[Order number]
         Setup for another order
     END
+    Compile receipts
 
 
 *** Keywords ***
@@ -65,8 +66,10 @@ Store the receipt as a PDF file
     @{receiptFiles}=    Create List    ${OUTPUT_DIR}${/}screenshots${/}${order_number}.png
     Add Files To Pdf    ${receiptFiles}    ${OUTPUT_DIR}${/}receipts${/}${order_number}.pdf    append=${True}
     Close All Pdfs
-    Archive Folder With Zip    ${OUTPUT_DIR}${/}receipts    ${OUTPUT_DIR}${/}receipts.zip
 
 Setup for another order
     Click Element    xpath://button[@id = 'order-another']
     Close the annoying modal
+
+Compile receipts
+    Archive Folder With Zip    ${OUTPUT_DIR}${/}receipts    ${OUTPUT_DIR}${/}receipts.zip
