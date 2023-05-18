@@ -77,6 +77,10 @@ Compile receipts
     Archive Folder With Zip    ${OUTPUT_DIR}${/}receipts    ${OUTPUT_DIR}${/}receipts.zip
 
 Clean the environment
-    Close All Browsers
-    Remove Directory    ${OUTPUT_DIR}${/}receipts    recursive:=${True}
-    Remove Directory    ${OUTPUT_DIR}${/}screenshots    recursive:=${True}
+    TRY
+        Remove File    orders.csv
+        Remove Directory    ${OUTPUT_DIR}${/}receipts    recursive:=${True}
+        Remove Directory    ${OUTPUT_DIR}${/}screenshots    recursive:=${True}
+    FINALLY
+        Close All Browsers
+    END
