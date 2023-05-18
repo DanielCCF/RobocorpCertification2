@@ -77,10 +77,12 @@ Compile receipts
     Archive Folder With Zip    ${OUTPUT_DIR}${/}receipts    ${OUTPUT_DIR}${/}receipts.zip
 
 Clean the environment
+    Remove File    orders.csv
     TRY
-        Remove File    orders.csv
         Remove Directory    ${OUTPUT_DIR}${/}receipts    recursive:=${True}
         Remove Directory    ${OUTPUT_DIR}${/}screenshots    recursive:=${True}
+    EXCEPT
+        Log    A folder was not found when deleting
     FINALLY
         Close All Browsers
     END
