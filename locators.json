@@ -1,0 +1,51 @@
+{
+    "ShippingAddress": {
+        "screenshot": ".images\\address-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "id",
+        "type": "browser",
+        "value": "address"
+    },
+    "ButtoncontainsShowmodelinfo": {
+        "screenshot": ".images\\buttoncontainsshowmodelinfo-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//button[contains(.,'Show model info')]"
+    },
+    "ButtoncontainstextOK": {
+        "screenshot": ".images\\buttoncontainstextok-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//button[contains(text(),'OK')]"
+    },
+    "Colsm5formgroup": {
+        "screenshot": ".images\\colsm5formgroup-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "css",
+        "type": "browser",
+        "value": ".col-sm-5 > .form-group"
+    },
+    "HeadType": {
+        "screenshot": ".images\\head-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "id",
+        "type": "browser",
+        "value": "head"
+    },
+    "LegsAmount": {
+        "screenshot": ".images\\labelcontainslegsinput-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//label[contains(text(),'Legs:')]/../input"
+    },
+    "PreviewButton": {
+        "screenshot": ".images\\preview-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "id",
+        "type": "browser",
+        "value": "preview"
+    }
+}
