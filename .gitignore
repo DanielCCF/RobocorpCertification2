@@ -1,5 +1,5 @@
 orders.csv
-output
+output/
 .vscode/settings.json
 output/log.html
 output/output.xml
