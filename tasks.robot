@@ -14,6 +14,8 @@ Library             RPA.Archive
 Library             RPA.FileSystem
 Library             DateTime
 
+Suite Teardown      Clean the environment
+
 
 *** Variables ***
 ${ORDERS_URL}                   https://robotsparebinindustries.com/#/robot-order
@@ -30,12 +32,12 @@ Order robots from RobotSpareBin Industries Inc
     FOR    ${order}    IN    @{orders}
         Fill the form    ${order}
         Preview the robot
-        Wait Until Keyword Succeeds    10x    3sec    Order robot
+        #The order button fails frequently, so that is the retry
+        Wait Until Keyword Succeeds    30x    1sec    Order robot
         Store the receipt as a PDF file    ${order}[Order number]
         Setup for another order
     END
     Compile receipts
-    [Teardown]    Clean the environment
 
 
 *** Keywords ***
@@ -73,11 +75,11 @@ Store the receipt as a PDF file
     Wait Until Element Is Visible    alias:ReceiptInformation
     ${receipt_html}=    Get Element Attribute    alias:ReceiptInformation    outerHTML
     Html To Pdf    ${receipt_html}    ${REPORT_PATH}
-    Screenshot
-    ...    alias:RobotPreviewImage
-    ...    ${SCREENSHOT_PATH}
+
+    Screenshot    alias:RobotPreviewImage    ${SCREENSHOT_PATH}
     @{receipt_files}=    Create List    ${SCREENSHOT_PATH}
     Add Files To Pdf    ${receipt_files}    ${REPORT_PATH}    append=${True}
+
     Close All Pdfs
 
 Setup for another order
@@ -91,6 +93,7 @@ Compile receipts
 
 Clean the environment
     Remove File    orders.csv
+
     TRY
         Remove Directory    ${TEMP_FOLDER_RECEIPTS}    recursive:=${True}
         Remove Directory    ${TEMP_FOLDER_SCREENSHOTS}    recursive:=${True}
