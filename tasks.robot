@@ -15,6 +15,11 @@ Library             RPA.FileSystem
 Library             DateTime
 
 
+*** Variables ***
+${ORDERS_URL}=      https://robotsparebinindustries.com/#/robot-order
+${CSV_URL}=         https://robotsparebinindustries.com/orders.csv
+
+
 *** Tasks ***
 Order robots from RobotSpareBin Industries Inc
     Open the robot orders website
@@ -33,13 +38,13 @@ Order robots from RobotSpareBin Industries Inc
 
 *** Keywords ***
 Open the robot orders website
-    Open Available Browser    https://robotsparebinindustries.com/#/robot-order
+    Open Available Browser    ${ORDERS_URL}
 
 Close the annoying modal
     Click Element    alias:ButtoncontainstextOK
 
 Get Orders
-    Download    https://robotsparebinindustries.com/orders.csv    overwrite=True
+    Download    ${CSV_URL}    overwrite=True
     ${table}=    Read table from CSV    orders.csv    header=True
     RETURN    ${table}
 
