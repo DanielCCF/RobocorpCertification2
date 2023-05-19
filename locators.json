@@ -1,11 +1,4 @@
 {
-    "ShippingAddress": {
-        "screenshot": ".images\\address-screenshot.png",
-        "source": "https://robotsparebinindustries.com/#/robot-order",
-        "strategy": "id",
-        "type": "browser",
-        "value": "address"
-    },
     "ButtoncontainsShowmodelinfo": {
         "screenshot": ".images\\buttoncontainsshowmodelinfo-screenshot.png",
         "source": "https://robotsparebinindustries.com/#/robot-order",
@@ -20,12 +13,26 @@
         "type": "browser",
         "value": "//button[contains(text(),'OK')]"
     },
-    "Colsm5formgroup": {
+    "ModelIdTable": {
         "screenshot": ".images\\colsm5formgroup-screenshot.png",
         "source": "https://robotsparebinindustries.com/#/robot-order",
         "strategy": "css",
         "type": "browser",
         "value": ".col-sm-5 > .form-group"
+    },
+    "ReceiptInformation": {
+        "screenshot": ".images\\dividreceipt-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//div[@id='receipt']"
+    },
+    "RobotPreviewImage": {
+        "screenshot": ".images\\dividrobotpreviewimage-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//div[@id='robot-preview-image']"
     },
     "HeadType": {
         "screenshot": ".images\\head-screenshot.png",
@@ -41,11 +48,39 @@
         "type": "browser",
         "value": "//label[contains(text(),'Legs:')]/../input"
     },
-    "PreviewButton": {
+    "ButtonOrderAnother": {
+        "screenshot": ".images\\orderanotherbutton-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "id",
+        "type": "browser",
+        "value": "order-another"
+    },
+    "ButtonOrder": {
+        "screenshot": ".images\\orderbutton-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "id",
+        "type": "browser",
+        "value": "order"
+    },
+    "ButtonPreview": {
         "screenshot": ".images\\preview-screenshot.png",
         "source": "https://robotsparebinindustries.com/#/robot-order",
         "strategy": "id",
         "type": "browser",
         "value": "preview"
+    },
+    "ReceiptInformation": {
+        "screenshot": ".images\\receiptinformation-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "xpath",
+        "type": "browser",
+        "value": "//div[@id='receipt']"
+    },
+    "ShippingAddress": {
+        "screenshot": ".images\\address-screenshot.png",
+        "source": "https://robotsparebinindustries.com/#/robot-order",
+        "strategy": "id",
+        "type": "browser",
+        "value": "address"
     }
 }

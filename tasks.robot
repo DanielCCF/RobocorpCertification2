@@ -56,26 +56,26 @@ Fill the form
     Input Text    alias:ShippingAddress    ${order}[Address]
 
 Preview the robot
-    Click Element    alias:PreviewButton
+    Click Element    alias:ButtonPreview
 
 Order robot
-    Click Element    xpath://button[@id = 'order']
-    Wait Until Element Is Visible    xpath://div[@id = 'receipt']    1
+    Click Element    alias:ButtonOrder
+    Wait Until Element Is Visible    alias:ReceiptInformation    1
 
 Store the receipt as a PDF file
     [Arguments]    ${order_number}
-    Wait Until Element Is Visible    xpath://div[@id = 'receipt']
-    ${receiptHTML}=    Get Element Attribute    xpath://div[@id = 'receipt']    outerHTML
+    Wait Until Element Is Visible    alias:ReceiptInformation
+    ${receiptHTML}=    Get Element Attribute    alias:ReceiptInformation    outerHTML
     Html To Pdf    ${receiptHTML}    ${OUTPUT_DIR}${/}receipts${/}${order_number}.pdf
     Screenshot
-    ...    xpath://*[@id="robot-preview-image"]
+    ...    alias:RobotPreviewImage
     ...    ${OUTPUT_DIR}${/}screenshots${/}${order_number}.png
     @{receiptFiles}=    Create List    ${OUTPUT_DIR}${/}screenshots${/}${order_number}.png
     Add Files To Pdf    ${receiptFiles}    ${OUTPUT_DIR}${/}receipts${/}${order_number}.pdf    append=${True}
     Close All Pdfs
 
 Setup for another order
-    Click Element    xpath://button[@id = 'order-another']
+    Click Element    alias:ButtonOrderAnother
     Close the annoying modal
 
 Compile receipts
