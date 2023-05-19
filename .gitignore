@@ -2,3 +2,4 @@ orders.csv
 output/
 .vscode/settings.json
 report.html
+interactive_console_output.xml
