@@ -16,8 +16,10 @@ Library             DateTime
 
 
 *** Variables ***
-${ORDERS_URL}=      https://robotsparebinindustries.com/#/robot-order
-${CSV_URL}=         https://robotsparebinindustries.com/orders.csv
+${ORDERS_URL}                   https://robotsparebinindustries.com/#/robot-order
+${CSV_URL}                      https://robotsparebinindustries.com/orders.csv
+${TEMP_FOLDER_RECEIPTS}         ${OUTPUT_DIR}${/}receipts${/}
+${TEMP_FOLDER_SCREENSHOTS}      ${OUTPUT_DIR}${/}screenshots${/}
 
 
 *** Tasks ***
@@ -64,14 +66,18 @@ Order robot
 
 Store the receipt as a PDF file
     [Arguments]    ${order_number}
+
+    ${SCREENSHOT_PATH}=    Set Variable    ${TEMP_FOLDER_SCREENSHOTS}${order_number}.png
+    ${REPORT_PATH}=    Set Variable    ${TEMP_FOLDER_RECEIPTS}${order_number}.pdf
+
     Wait Until Element Is Visible    alias:ReceiptInformation
-    ${receiptHTML}=    Get Element Attribute    alias:ReceiptInformation    outerHTML
-    Html To Pdf    ${receiptHTML}    ${OUTPUT_DIR}${/}receipts${/}${order_number}.pdf
+    ${receipt_html}=    Get Element Attribute    alias:ReceiptInformation    outerHTML
+    Html To Pdf    ${receipt_html}    ${REPORT_PATH}
     Screenshot
     ...    alias:RobotPreviewImage
-    ...    ${OUTPUT_DIR}${/}screenshots${/}${order_number}.png
-    @{receiptFiles}=    Create List    ${OUTPUT_DIR}${/}screenshots${/}${order_number}.png
-    Add Files To Pdf    ${receiptFiles}    ${OUTPUT_DIR}${/}receipts${/}${order_number}.pdf    append=${True}
+    ...    ${SCREENSHOT_PATH}
+    @{receipt_files}=    Create List    ${SCREENSHOT_PATH}
+    Add Files To Pdf    ${receipt_files}    ${REPORT_PATH}    append=${True}
     Close All Pdfs
 
 Setup for another order
@@ -80,14 +86,14 @@ Setup for another order
 
 Compile receipts
     ${formatted_timestamp}=    Get Current Date    result_format=%y-%m-%d-%H-%M-%S
-    ${file_name}=    Catenate    SEPARATOR=    receipts-    ${formatted_timestamp}
-    Archive Folder With Zip    ${OUTPUT_DIR}${/}receipts    ${OUTPUT_DIR}${/}receipts-${formatted_timestamp}.zip
+    ${file_name}=    Catenate    SEPARATOR=    receipts-    ${formatted_timestamp}    .zip
+    Archive Folder With Zip    ${TEMP_FOLDER_RECEIPTS}    ${OUTPUT_DIR}${/}${file_name}
 
 Clean the environment
     Remove File    orders.csv
     TRY
-        Remove Directory    ${OUTPUT_DIR}${/}receipts    recursive:=${True}
-        Remove Directory    ${OUTPUT_DIR}${/}screenshots    recursive:=${True}
+        Remove Directory    ${TEMP_FOLDER_RECEIPTS}    recursive:=${True}
+        Remove Directory    ${TEMP_FOLDER_SCREENSHOTS}    recursive:=${True}
     EXCEPT
         Log    A folder was not found when deleting
     FINALLY
